@@ -1,3 +1,53 @@
 {
-  "extends": "next/core-web-vitals"
+  "env": {
+      "browser": true,
+      "es2021": true
+  },
+  "extends": [
+      "next/core-web-vitals",
+      "plugin:react/recommended",
+      "airbnb",
+      "plugin:import/errors",
+      "plugin:import/warnings",
+      "plugin:import/typescript"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+      "ecmaFeatures": {
+          "jsx": true
+      },
+      "ecmaVersion": 12,
+      "sourceType": "module"
+  },
+  "plugins": [
+      "react",
+      "@typescript-eslint"
+  ],
+  "rules": {
+      "linebreak-style":0,
+      "import/extensions": [
+          "error",
+          "ignorePackages",
+          {
+            "js": "never",
+            "jsx": "never",
+            "ts": "never",
+            "tsx": "never"
+          }
+       ],
+      "no-use-before-define": ["off", { "functions": false,"variables":true}],
+      "@typescript-eslint/no-use-before-define": ["off",{"variables":true}],
+      "react/jsx-filename-extension": [2, { "extensions": [".js", ".jsx", ".ts", ".tsx"] }]
+  },
+  "settings": {
+      "import/resolver": {
+        "node": {
+          // "extensions": [".js", ".jsx", ".ts", ".tsx"],
+          // "moduleDirectory": ["node_modules", "src/"],
+          "paths": ["src"]
+        }
+      },
+      "import/extensions": 0
+  }
 }
+
