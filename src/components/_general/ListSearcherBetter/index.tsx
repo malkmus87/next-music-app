@@ -14,8 +14,6 @@ const ListSearcherBetter: FunctionComponent<ListSearcherProps> = ({
   label,
   onSubmit,
   listComponent,
-  isFocused,
-  onTextFieldClick,
   style,
   ...rest
 }:ListSearcherProps) => {
@@ -25,6 +23,8 @@ const ListSearcherBetter: FunctionComponent<ListSearcherProps> = ({
   const [searchKey, setSearchKey] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [timeoutID, setTimeoutID] = useState<any>();
+  const [textInputIsFocused, setTextInputIsFocused] = useState<boolean>(false);
+  const [focusedElement, setFocusedElement] = useState<string | null>(null);
 
   function goToNextIndex() {
     setFocusedIndex((currentIndex:number) => (
@@ -40,12 +40,20 @@ const ListSearcherBetter: FunctionComponent<ListSearcherProps> = ({
     if (isLoading) return;
     if (searchKey.length === 0) setErrorMessage('Missing input');
     else if (selectableValues.length === 0) setErrorMessage('No items');
-    else {
-      onSubmit(selectableValues[focusedIndex]);
-      setErrorMessage('');
-    }
+    else handleSubmit(selectableValues[focusedIndex]);
   }
-
+  function reset() {
+    setErrorMessage('');
+    setSearchKey('');
+    setSelectableValues([]);
+  }
+  function handleSubmit(submittedValue: any) {
+    onSubmit(submittedValue);
+    setErrorMessage('');
+    setSearchKey('');
+    setTextInputIsFocused(false);
+    setSelectableValues([]);
+  }
   function onKeyDown(event: React.KeyboardEvent<HTMLInputElement>) {
     switch (event.key) {
       case 'Enter':
@@ -73,7 +81,6 @@ const ListSearcherBetter: FunctionComponent<ListSearcherProps> = ({
         setSelectableValues([]);
         setErrorMessage(error.message);
       }
-      console.log(error);
     }
     setIsLoading(false);
   }
@@ -90,35 +97,45 @@ const ListSearcherBetter: FunctionComponent<ListSearcherProps> = ({
     }
     setFocusedIndex(0);
   };
+  console.log(textInputIsFocused);
   return (
-    <div style={style}>
+    <div
+      style={{ marginTop: 10 }}
+      onBlur={(event) => {
+        if (!event.currentTarget.contains(event.relatedTarget)) {
+          setTextInputIsFocused(false);
+        }
+      }}
+      
+      onKeyDown={onKeyDown}
+      role="none"
+    >
       <div
-        onKeyDown={onKeyDown}
         {...rest}
         role="none"
         data-testid="ListSearcher"
         style={{
           ...ListDefaultStyle,
-          ...isFocused ? ListFocusedStyle : {},
+          ...textInputIsFocused ? ListFocusedStyle : {},
         }}
       >
         <TextField
           data-testid="ListSearcherTextField"
           value={searchKey}
           onChange={onTextChange}
-          onClick={(event) => {
-            event.stopPropagation();
-            if (onTextFieldClick !== undefined) onTextFieldClick();
-          }}
           style={{ width: '100%' }}
           label={label}
+          tabIndex={0}
           inputProps={{
             'data-testid': 'ListSearcherTextFieldInput',
           }}
+          onClick={(event) => {
+            setTextInputIsFocused(true);
+          }}
         />
 
-        {isFocused && (
-        <div>
+        {/* {textInputIsFocused && ( */}
+        <div style={{ height: textInputIsFocused ? 'auto' : 0, overflow: 'hidden' }}>
           {isLoading
             ? <CenteredLoadingComponent />
             : (
@@ -127,11 +144,17 @@ const ListSearcherBetter: FunctionComponent<ListSearcherProps> = ({
                 focusedIndex={focusedIndex}
                 selectableValues={selectableValues}
                 listComponent={listComponent}
+                onItemClick={(selectedValue: any) => {
+                  // console.log("On item click");
+                  console.log("Click event triggered");
+                  handleSubmit(selectedValue);
+                  reset();
+                }}
               />
             )}
         </div>
-        )}
-        {isFocused && errorMessage !== '' && <div style={{ color: 'coral' }}>{errorMessage}</div>}
+        {/* )} */}
+        {textInputIsFocused && errorMessage !== '' && <div style={{ color: 'coral' }}>{errorMessage}</div>}
       </div>
     </div>
   );
@@ -140,9 +163,7 @@ const ListSearcherBetter: FunctionComponent<ListSearcherProps> = ({
 ListSearcherBetter.defaultProps = {
   label: 'Search',
   style: {},
-  isFocused: true,
   listComponent: (value:string) => <div>{value}</div>,
-  onTextFieldClick: () => null,
 };
 
 export default ListSearcherBetter;

@@ -9,28 +9,34 @@ const ListItemStyle:any = {
   overflow: 'visible',
 };
 
-interface PickableListPropsType {
+export interface PickableListPropsType {
   selectableValues:Array<any>;
   listComponent: Function;
   setFocusedIndex: Function;
   focusedIndex: number;
+  onItemClick: Function;
 }
 
 const PickableList: FunctionComponent<PickableListPropsType> = ({
-  selectableValues, listComponent, setFocusedIndex, focusedIndex,
+  selectableValues, listComponent, setFocusedIndex, focusedIndex, onItemClick,
 }:PickableListPropsType) => (
   <>
-    {selectableValues.map((selectableValue: any, index: number) => (
-      React.cloneElement(listComponent(selectableValue), {
+    {selectableValues.map((selectableValue: any, index: number) => {
+      const Element = React.cloneElement(listComponent(selectableValue), {
+        id: `value${index.toString()}`,
         onMouseOver: () => setFocusedIndex(index),
         onFocus: () => setFocusedIndex(index),
+        onClick: (event) => {
+          onItemClick(selectableValue);
+        },
         style: {
           ...ListItemStyle,
           background: focusedIndex === index ? 'whitesmoke' : 'white',
         },
         'data-testid': `value${index.toString()}`,
-      })
-    ))}
+      });
+      return Element;
+    })}
   </>
 );
 

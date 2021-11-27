@@ -25,7 +25,7 @@ function assembleText(text: string) : any {
     const isProbablyHeader = lastGeneratedText === '' && currentValue.length < 100;
     return ([...accumulatedElements, {
       text: currentValue,
-      component: <p style={{ marginBottom: 5, ...isProbablyHeader ? { color: 'coral' } : {} }}>{currentValue}</p>,
+      component: <p key={accumulatedElements.length.toString()} style={{ marginBottom: 5, ...isProbablyHeader ? { color: 'coral' } : {} }}>{currentValue}</p>,
     }]);
   }
   return text !== undefined ? text.split('\n').reduce(assembleTextReducer, []).map((element) => element.component) : [];

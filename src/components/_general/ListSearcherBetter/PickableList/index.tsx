@@ -14,21 +14,23 @@ interface PickableListPropsType {
   listComponent: Function;
   setFocusedIndex: Function;
   focusedIndex: number;
+  onItemClick: Function;
 }
 
 const PickableList: FunctionComponent<PickableListPropsType> = ({
-  selectableValues, listComponent, setFocusedIndex, focusedIndex,
+  selectableValues, listComponent, setFocusedIndex, focusedIndex, onItemClick,
 }:PickableListPropsType) => (
   <>
     {selectableValues.map((selectableValue: any, index: number) => (
       React.cloneElement(listComponent(selectableValue), {
         onMouseOver: () => setFocusedIndex(index),
         onFocus: () => setFocusedIndex(index),
+        onClick: () => onItemClick(selectableValue),
         style: {
           ...ListItemStyle,
           background: focusedIndex === index ? 'whitesmoke' : 'white',
         },
-        'data-testid': `value${index.toString()}`,
+        'data-testid': `PickableListIndex${index.toString()}`,
       })
     ))}
   </>

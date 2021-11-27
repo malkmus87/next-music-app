@@ -4,6 +4,5 @@ export interface ListSearcherProps {
   listComponent?: any;
   label?:string;
   style?: any;
-  isFocused?: boolean;
   onTextFieldClick?: Function;
 }

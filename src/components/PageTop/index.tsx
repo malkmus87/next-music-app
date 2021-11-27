@@ -38,11 +38,10 @@ const PageTop:FunctionComponent<PageTopPropsType> = ({
 
   const listComponent:any = (artist:any) => (
     <div
-      key={artist.musicBrainzID}
+      tabIndex={0}
       style={{
         padding: 10, width: 'calc(100% - 6px)', cursor: 'pointer', borderBottom: '2px black solid',
       }}
-      onClick={() => selectArtist(artist)}
       role="none"
     >
       {artist.name}
@@ -58,11 +57,8 @@ const PageTop:FunctionComponent<PageTopPropsType> = ({
     >
       <ListSearcherBetter
         onSubmit={selectArtist}
-        onTextFieldClick={() => setFocusedElement('ListSearcher')}
         listComponent={listComponent}
         setListOnInput={generateListOnInput}
-        isFocused={focusedElement === 'ListSearcher'}
-        style={{ paddingTop: 10 }}
       />
     </CenteredComponent>
   );

@@ -1,10 +1,14 @@
 /* eslint-disable import/no-unresolved */
 import { configureStore } from '@reduxjs/toolkit';
 import focusedElementReducer from 'redux/slices/focusedElementSlice';
+import cachedArtistInfoReducer from 'redux/slices/cachedArtistInfoSlice';
+import cachedArtistAlbumsReducer from 'redux/slices/cachedArtistAlbumsSlice';
 
 const store = configureStore({
   reducer: {
     focusedElement: focusedElementReducer,
+    cachedArtistInfo: cachedArtistInfoReducer,
+    cachedArtistAlbums: cachedArtistAlbumsReducer,
   },
 });
 

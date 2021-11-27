@@ -1,25 +1,61 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import type { NextPage } from 'next';
 import * as React from 'react';
-import App from 'components/AppView';
+
+import { CenteredComponent } from 'components/_general';
 import ArtistOverview from 'components/ArtistOverview';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import AlbumBrowser from 'components/AlbumBrowser';
+
 // import { Provider } from 'react-redux';
 // import store from 'redux/store';
 // import './index.css';
 // import Wrapper from 'components/Wrapper';
 
-const Main: NextPage = ({ id }: any) => (
-  <ArtistOverview
-    musicbrainzID={id}
-    setAlbumBrowserProps={() => null}
-  />
-  // <App selectedMusicbrainzID={id} />
-);
+interface AlbumBrowserPropsType {
+  initialSelectedAlbumID: string | null;
+  albums: Array<any>;
+}
 
-Main.getInitialProps = ({ query: { id } }) => ({ id });
+const ArtistView: NextPage = React.memo(({ selectedMusicbrainzID }: any) => {
+  const [albumBrowserProps, setAlbumBrowserProps] = React.useState<AlbumBrowserPropsType>({
+    initialSelectedAlbumID: null,
+    albums: [],
+  });
+  const clearAlbumProps : Function = () => {
+    setAlbumBrowserProps({
+      initialSelectedAlbumID: null,
+      albums: [],
+    });
+  };
 
-Main.defaultProps = {
-  id: null,
+  return (
+    <CenteredComponent
+      innerStyle={{
+        width: '100%',
+        maxWidth: 1200,
+      }}
+    >
+      {albumBrowserProps.initialSelectedAlbumID && (
+        <AlbumBrowser
+          {...albumBrowserProps}
+          onLeave={clearAlbumProps}
+        />
+      )}
+      {selectedMusicbrainzID && (
+        <ArtistOverview
+          musicbrainzID={selectedMusicbrainzID}
+          setAlbumBrowserProps={setAlbumBrowserProps}
+        />
+      )}
+
+    </CenteredComponent>
+  );
+});
+
+ArtistView.getInitialProps = ({ query: { selectedMusicbrainzID } }) => ({ selectedMusicbrainzID });
+
+ArtistView.defaultProps = {
+  selectedMusicbrainzID: null,
 };
 
-export default Main;
+export default ArtistView;
