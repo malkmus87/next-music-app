@@ -13,33 +13,29 @@ interface PropsType {
 }
 
 const AlbumOverviewInnerStyleBase = {
-  background: 'white',
-  width: '100%',
+  background: 'whitesmoke',
   height: '100vh',
+  padding: 20,
 };
 
 const AlbumBrowser : FunctionComponent<PropsType> = ({
   initialSelectedAlbumID,
   onLeave,
   style,
-  albums 
 }:PropsType) => {
   const [selectedAlbumID, setSelectedAlbumID] = useState<string | null>(null);
-
   useEffect(() => {
     setSelectedAlbumID(initialSelectedAlbumID);
   }, [initialSelectedAlbumID]); // Set default selection on new props
 
   const viewStyle = useSpring({
     loop: false,
-    from: { marginLeft: '100vh' },
+    from: { marginLeft: '50vh' },
     to: { marginLeft: '0vh' },
   });
 
   return (
-    <div
-      style={style}
-    >
+    <div style={style}>
       <animated.div
         style={{ ...AlbumOverviewInnerStyleBase, ...viewStyle }}
       >

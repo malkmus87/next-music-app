@@ -11,14 +11,14 @@ interface PropsType{
 
 const sortButtonProps:any = ({
   style: {
-    display: 'inline-block', cursor: 'pointer', userSelect: 'none', WebkitUserSelect: 'none', color: 'black',
+    display: 'inline-block', cursor: 'pointer', userSelect: 'none', WebkitUserSelect: 'none',
   },
   styleOnHover: { color: 'royalblue' },
 });
 
 const DiscographyTop:FunctionComponent<PropsType> = ({ sortReleases }:PropsType) => (
   <div style={{
-    background: 'rgb(252,252,252)', borderStyle: 'solid', borderColor: 'whitesmoke', borderWidth: '1px', borderBottomWidth: '3px', borderTop: '1px whitesmoke solid', padding: '2px 10px 2px 60px', fontWeight: 550, borderRadius: '2px 2px 5px 5px', fontSize: 15,
+    background: '#444444', borderStyle: 'solid', borderTop: '1px whitesmoke solid', padding: '2px 10px 2px 60px', fontWeight: 500, borderRadius: '2px 2px 5px 5px', fontSize: 15, color: 'ghostwhite', textShadow: '0 0 1px grey',
   }}
   >
     <Column style={{ width: 180 }}>

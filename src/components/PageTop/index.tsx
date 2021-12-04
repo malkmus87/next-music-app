@@ -8,13 +8,11 @@ import ArtistRequest from '../../resources/artist';
 
 interface PageTopPropsType{
     setFocusedElement:Function;
-    focusedElement:string|null;
     setSelectedMusicbrainzID:Function;
     style?:any;
 }
 
 const PageTop:FunctionComponent<PageTopPropsType> = ({
-  focusedElement,
   setFocusedElement,
   setSelectedMusicbrainzID,
   style,
@@ -50,7 +48,6 @@ const PageTop:FunctionComponent<PageTopPropsType> = ({
 
   return (
     <CenteredComponent
-      onClick={() => setFocusedElement(null)}
       onKeyDown={():any => null}
       role="none"
       style={style}
@@ -58,6 +55,7 @@ const PageTop:FunctionComponent<PageTopPropsType> = ({
       <ListSearcherBetter
         onSubmit={selectArtist}
         listComponent={listComponent}
+        style={{ paddingBottom: 10 }}
         setListOnInput={generateListOnInput}
       />
     </CenteredComponent>

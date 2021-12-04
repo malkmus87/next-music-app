@@ -2,13 +2,13 @@
 import * as React from 'react';
 import 'styles/globals.css';
 import type { AppProps } from 'next/app';
-import PageTop from 'src/components/PageTop';
+import PageTop from 'components/PageTop';
 import { useRouter } from 'next/router';
 import { Provider } from 'react-redux';
 import store from 'redux/store';
 import {
   AppBodyStyleProps, PageTopStyleProps,
-} from 'components/AppView/style';
+} from 'styles/mainComponents';
 import { LegacyRef } from 'react';
 import useScrollEventListener from 'components/_hooks/useScrollEventListener';
 

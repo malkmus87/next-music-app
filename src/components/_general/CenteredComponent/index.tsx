@@ -2,12 +2,8 @@
 import * as React from 'react';
 import { FunctionComponent } from 'react';
 import CenteredRow from 'components/_general/CenteredRow';
-
-// interface CenteredComponentProps {
-//   innerStyle:any;
-//   style:any;
-//   children:any;
-// }
+import Column from 'components/_general/Column';
+import styled from 'styled-components';
 
 const CenteredComponent:FunctionComponent<any> = ({
   innerStyle,
@@ -16,13 +12,10 @@ const CenteredComponent:FunctionComponent<any> = ({
   ...rest
 }:any) => (
   <CenteredRow style={{ ...style }} {...rest}>
-    <div style={{
-      display: 'inline-block', verticalAlign: 'top', textAlign: 'left', ...innerStyle,
-    }}
-    >
+    <Column style={innerStyle}>
       {children}
-    </div>
+    </Column>
   </CenteredRow>
 );
-
+const test = '';
 export default CenteredComponent;

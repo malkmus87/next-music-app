@@ -4,7 +4,6 @@ import CenteredRow from './CenteredRow';
 // import GroupableList from './GroupableList';
 import Column from './Column';
 import HoveredComponent from './HoveredComponent';
-import ListSearcher from './ListSearcher';
 import ListSearcherBetter from './ListSearcherBetter';
 
 export {
@@ -14,6 +13,5 @@ export {
   // GroupableList,
   Column,
   HoveredComponent,
-  ListSearcher,
-  ListSearcherBetter
+  ListSearcherBetter,
 };

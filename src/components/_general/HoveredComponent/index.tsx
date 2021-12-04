@@ -17,16 +17,6 @@ const convertToToggledSpringStyle: Function = ({ style, activeStyle, isToggledOn
     ...currentValue,
   }));
 };
-const convertToToggledSpringFunction: Function = (isToggledOn: any) => ({ style, activeStyle }:any) => {
-  const stylesToCombine = Object.keys(style).map((key: string) => ({
-    [key]: isToggledOn && activeStyle[key] !== undefined
-      ? activeStyle[key] : style[key],
-  }));
-  return stylesToCombine.reduce((accumulatedValue: any, currentValue: any) => ({
-    ...accumulatedValue,
-    ...currentValue,
-  }));
-};
 
 const HoveredComponent:FunctionComponent<HoveredComponentProps> = ({
   style, children, styleOnHover, ...rest

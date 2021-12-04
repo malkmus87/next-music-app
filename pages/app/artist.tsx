@@ -5,11 +5,7 @@ import * as React from 'react';
 import { CenteredComponent } from 'components/_general';
 import ArtistOverview from 'components/ArtistOverview';
 import AlbumBrowser from 'components/AlbumBrowser';
-
-// import { Provider } from 'react-redux';
-// import store from 'redux/store';
-// import './index.css';
-// import Wrapper from 'components/Wrapper';
+import { AlbumBrowserStyleProps, ArtistOverviewStyleProps, ContentStyle } from 'styles/mainComponents';
 
 interface AlbumBrowserPropsType {
   initialSelectedAlbumID: string | null;
@@ -30,20 +26,19 @@ const ArtistView: NextPage = React.memo(({ selectedMusicbrainzID }: any) => {
 
   return (
     <CenteredComponent
-      innerStyle={{
-        width: '100%',
-        maxWidth: 1200,
-      }}
+      innerStyle={ContentStyle}
     >
       {albumBrowserProps.initialSelectedAlbumID && (
         <AlbumBrowser
           {...albumBrowserProps}
+          style={AlbumBrowserStyleProps}
           onLeave={clearAlbumProps}
         />
       )}
       {selectedMusicbrainzID && (
         <ArtistOverview
           musicbrainzID={selectedMusicbrainzID}
+          style={ArtistOverviewStyleProps}
           setAlbumBrowserProps={setAlbumBrowserProps}
         />
       )}

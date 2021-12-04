@@ -100,13 +100,12 @@ const ListSearcherBetter: FunctionComponent<ListSearcherProps> = ({
   console.log(textInputIsFocused);
   return (
     <div
-      style={{ marginTop: 10 }}
+      // style={{ marginTop: 5 }}
       onBlur={(event) => {
         if (!event.currentTarget.contains(event.relatedTarget)) {
           setTextInputIsFocused(false);
         }
       }}
-      
       onKeyDown={onKeyDown}
       role="none"
     >

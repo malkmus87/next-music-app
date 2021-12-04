@@ -1,13 +1,11 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import * as React from 'react';
 import { FunctionComponent } from 'react';
+import styled from 'styled-components';
 
-const Column:FunctionComponent<any> = ({ style, children, ...rest }:any) => (
-  <div style={{ display: 'inline-block', verticalAlign: 'top', ...style }} {...rest}>
-    {children}
-  </div>
-);
-Column.defaultProps = {
-  style: {},
-};
+const Column = styled.div`
+  display: inline-block;
+  vertical-align: top;
+`;
+
 export default Column;
